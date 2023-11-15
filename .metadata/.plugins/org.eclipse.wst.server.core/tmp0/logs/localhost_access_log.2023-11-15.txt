@@ -1,0 +1,11 @@
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:04:08 -0300] "GET /Economiza/pages/login.jsp HTTP/1.1" 200 2605
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:04:13 -0300] "POST /Economiza/pages/login HTTP/1.1" 500 2072
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:05:13 -0300] "POST /Economiza/pages/login HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:05:13 -0300] "GET /Economiza/pages/user.jsp HTTP/1.1" 200 11586
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:05:13 -0300] "GET /Economiza/uploads/Singed_0.jpg HTTP/1.1" 200 38242
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:06:39 -0300] "GET /Economiza/pages/register.jsp HTTP/1.1" 200 4608
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:07:30 -0300] "POST /Economiza/pages/register HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:07:30 -0300] "GET /Economiza/pages/login.jsp HTTP/1.1" 200 2605
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:08:51 -0300] "POST /Economiza/pages/login HTTP/1.1" 500 1380
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:09:06 -0300] "POST /Economiza/pages/login HTTP/1.1" 500 1380
+0:0:0:0:0:0:0:1 - - [15/Nov/2023:00:09:18 -0300] "POST /Economiza/pages/login HTTP/1.1" 500 1380

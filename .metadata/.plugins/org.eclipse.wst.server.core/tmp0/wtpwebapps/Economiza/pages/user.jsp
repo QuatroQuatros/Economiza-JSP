@@ -65,6 +65,7 @@
               <div class="user-profile">
                 <div class="user-photo">
                   <a href="./user.html">
+                  
                    <img src="<%= session.getAttribute("foto") %>" />
                   </a>
                 </div>
@@ -82,7 +83,7 @@
     <main class="d-flex justify-content-center flex-column">
       <div class="d-flex align-items-center my-3 flex-column">
         <img
-          src="../img/user.png"
+		  src="<%= session.getAttribute("foto") %>"
           class="rounded-circle img-perfil"
           id=""
           alt="..."
