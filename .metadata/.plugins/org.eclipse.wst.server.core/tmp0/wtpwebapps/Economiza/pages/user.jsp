@@ -1,4 +1,19 @@
 <%@ page   import = "Models.Usuario " contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="javax.servlet.http.HttpSession" %>
+
+<% 
+
+	session = request.getSession(false);
+	if(session == null || session.getAttribute("name") == null){
+		response.sendRedirect("./login.jsp");
+	}
+
+
+
+
+%>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
@@ -28,9 +43,6 @@
   </head>
 
   <body>
-  	<% 
-  		Usuario user = (Usuario)session.getAttribute("user");
-  	%>
     <header id="home">
       <nav class="navbar navbar-expand-md py-3 menu">
         <div class="container">
@@ -65,6 +77,7 @@
               <div class="user-profile">
                 <div class="user-photo">
                   <a href="./user.html">
+                  
                    <img src="<%= session.getAttribute("foto") %>" />
                   </a>
                 </div>
@@ -82,7 +95,7 @@
     <main class="d-flex justify-content-center flex-column">
       <div class="d-flex align-items-center my-3 flex-column">
         <img
-          src="../img/user.png"
+		  src="<%= session.getAttribute("foto") %>"
           class="rounded-circle img-perfil"
           id=""
           alt="..."

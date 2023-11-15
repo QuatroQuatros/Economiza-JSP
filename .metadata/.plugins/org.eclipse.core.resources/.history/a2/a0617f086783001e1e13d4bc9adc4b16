@@ -55,14 +55,30 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 //			session.setAttribute("user", user);
 			session.setAttribute("name", user.getNome());
-				
-		    String caminhoAbsoluto = user.getFoto();   	    
-		    File arquivoOrigem = new File(caminhoAbsoluto);
-		    String urlCompleta = request.getContextPath() + "/uploads/" + arquivoOrigem.getName();
-
-		    
-			session.setAttribute("foto", urlCompleta );
 			
+			
+			
+		    String caminhoAbsoluto = user.getFoto();
+		    
+		    // Obtém o caminho real do contexto da aplicação
+//		    String contexto = request.getServletContext().getRealPath("/");
+//
+//		    String diretorioPublico = contexto + "uploads/";
+//		    
+//		    File arquivoOrigem = new File(caminhoAbsoluto);
+//		    File arquivoDestino = new File(diretorioPublico + arquivoOrigem.getName());
+//		    
+//		    Files.copy(arquivoOrigem.toPath(), arquivoDestino.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//		    
+//		    String caminhoRelativo = "uploads/" + arquivoOrigem.getName();
+//
+//		    String urlCompleta = request.getContextPath() + "/" + caminhoRelativo;
+//		
+//		    System.out.println(urlCompleta);
+		    
+		    String url = user.getFoto().replace("\\", "/");
+		    System.out.println(url);
+			session.setAttribute("foto", url );
 			response.sendRedirect("./user.jsp");
 		}else {
 			response.sendRedirect("error.jsp");
