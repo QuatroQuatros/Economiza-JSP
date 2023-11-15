@@ -1,0 +1,85 @@
+
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+import DAO.UsuarioDAOImpl;
+import Models.Usuario;
+
+
+
+/**
+ * Servlet implementation class RegisterServlet
+ */
+@WebServlet("/register")
+public class RegisterServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private static UsuarioDAOImpl userDao;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public RegisterServlet() {
+        super();
+        userDao = new UsuarioDAOImpl();
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+//		doGet(request, response);
+//		response.getWriter().append("Está do seu agrado?");
+//		 String nome = request.getParameter("nome");
+//		 response.getWriter().append(nome);
+//		 String cpf = request.getParameter("cpf");
+//		 String dt_nascimento = request.getParameter("nascimento");
+//		 String foto = request.getParameter("foto");
+//		 String email = request.getParameter("email");
+//		 String senha = request.getParameter("senha");
+//		 
+//		 Usuario user = new Usuario(nome, email, senha, dt_nascimento, foto, cpf);
+//		 userDao.inserirUsuario(user);
+		
+		if (ServletFileUpload.isMultipartContent(request)) {
+	        FileItemFactory factory = new DiskFileItemFactory();
+	        ServletFileUpload upload = new ServletFileUpload(factory);
+
+	        try {
+	            List<FileItem> items = upload.parseRequest(request);
+	            for (FileItem item : items) {
+	                if (item.isFormField()) {
+	                    // Processar campos de texto normais aqui
+	                    String fieldName = item.getFieldName();
+	                    String value = item.getString();
+	                    // ...
+	                } else {
+	                    // Este é um campo de arquivo
+	                    String fieldName = item.getFieldName();
+	                    String fileName = item.getName();
+	                    InputStream fileContent = item.getInputStream();
+	                    // Faça o que for necessário com o arquivo, como salvá-lo em disco
+	                    // ...
+	                }
+	            }
+	        } catch (FileUploadException e) {
+	            // Trate exceções
+	        }
+	    }
+	}
+
+}

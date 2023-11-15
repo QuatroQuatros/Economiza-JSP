@@ -1,0 +1,107 @@
+package DAO;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import Models.Despesas;
+import br.com.quatroquatros.ConnectionManager;
+
+public class DespesasDAOImpl {
+    private Connection connection;
+
+    public DespesasDAOImpl() {
+        this.connection = ConnectionManager.getInstance().getConnection();
+    }
+
+    public void inserirDespesa(Despesas despesa) {
+        String query = "INSERT INTO despesas (id_usuario, id_tipo_despesa, id_recorencia, valor, descricao, data_vencimento) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, despesa.getId_usuario());
+            stmt.setInt(2, despesa.getId_tipo_despesa());
+            stmt.setInt(3, despesa.getId_recorencia());
+            stmt.setFloat(4, despesa.getValor());
+            stmt.setString(5, despesa.getDescricao());
+            stmt.setDate(6, despesa.getData_vencimento());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Despesas buscarDespesaPorId(int id) {
+        String sql = "SELECT * FROM despesas WHERE id=?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet result = stmt.executeQuery()) {
+                if (result.next()) {
+                    Despesas despesa = new Despesas();
+                    despesa.setId(result.getInt("id"));
+                    despesa.setId_usuario(result.getInt("id_usuario"));
+                    despesa.setId_tipo_despesa(result.getInt("id_tipo_despesa"));
+                    despesa.setId_recorencia(result.getInt("id_recorencia"));
+                    despesa.setValor(result.getFloat("valor"));
+                    despesa.setDescricao(result.getString("descricao"));
+                    despesa.setData_vencimento(result.getDate("data_vencimento"));
+                    return despesa;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<Despesas> listarTodasDespesas() {
+        List<Despesas> despesas = new ArrayList<>();
+        String query = "SELECT * FROM despesas";
+        try (PreparedStatement stmt = connection.prepareStatement(query);
+             ResultSet result = stmt.executeQuery()) {
+            while (result.next()) {
+                Despesas despesa = new Despesas();
+                despesa.setId(result.getInt("id"));
+                despesa.setId_usuario(result.getInt("id_usuario"));
+                despesa.setId_tipo_despesa(result.getInt("id_tipo_despesa"));
+                despesa.setId_recorencia(result.getInt("id_recorencia"));
+                despesa.setValor(result.getFloat("valor"));
+                despesa.setDescricao(result.getString("descricao"));
+                despesa.setData_vencimento(result.getDate("data_vencimento"));
+                despesas.add(despesa);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return despesas;
+    }
+
+    public void atualizarDespesa(Despesas despesa) {
+        String query = "UPDATE despesas SET id_usuario=?, id_tipo_despesa=?, id_recorencia=?, valor=?, descricao=?, data_vencimento=? " +
+                "WHERE id=?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, despesa.getId_usuario());
+            stmt.setInt(2, despesa.getId_tipo_despesa());
+            stmt.setInt(3, despesa.getId_recorencia());
+            stmt.setFloat(4, despesa.getValor());
+            stmt.setString(5, despesa.getDescricao());
+            stmt.setDate(6, despesa.getData_vencimento());
+            stmt.setInt(7, despesa.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deletarDespesa(int id) {
+        String query = "DELETE FROM despesas WHERE id=?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}

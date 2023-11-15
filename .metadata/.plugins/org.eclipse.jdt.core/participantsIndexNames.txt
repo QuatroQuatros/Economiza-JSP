@@ -1,0 +1,5 @@
+INDEX VERSION 1.132
+C:\Users\cesgu\Desktop\FIAP\Fintech\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1657115073.index
+\Economiza\src\main\java
+C:\Users\cesgu\Desktop\FIAP\Fintech\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\281721228.index
+\Economiza\src\main\java
