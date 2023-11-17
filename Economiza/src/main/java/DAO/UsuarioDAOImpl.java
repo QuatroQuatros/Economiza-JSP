@@ -36,7 +36,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setString(6, Helpers.limparCPF(usuario.getCpf()));
             stmt.executeUpdate();
             conn.commit();
-            System.out.println("usuario criado");
+            conn.close();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -67,12 +67,14 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    conn.close();
                     return criarUsuarioAPartirDoResultSet(rs);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return null;
     }
 
@@ -88,6 +90,11 @@ public class UsuarioDAOImpl implements UsuarioDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return usuarios;
     }
 
@@ -105,6 +112,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setInt(7, usuario.getId());
             stmt.executeUpdate();
             conn.commit();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -117,6 +125,7 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setInt(1, id);
             stmt.executeUpdate();
             conn.commit();
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -141,12 +150,18 @@ public class UsuarioDAOImpl implements UsuarioDAO {
             stmt.setString(1, email);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
+                    conn.close();
                     return criarUsuarioAPartirDoResultSet(rs);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
         return null;
     	
     }

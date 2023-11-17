@@ -1,8 +1,6 @@
 INDEX VERSION 1.4+C:\Users\cesgu\Desktop\FIAP\Fintech\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
 127217240.index
 684862422.index
-1657115073.index
-1657115073.index
 1087827978.index
 3276641211.index
 3213771481.index
