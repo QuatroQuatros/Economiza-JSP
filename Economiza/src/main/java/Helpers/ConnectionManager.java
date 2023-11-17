@@ -41,6 +41,12 @@ public class ConnectionManager {
 
 
 	public void closeConnection() {
-		
+		try {
+            if (conn != null && !conn.isClosed()) {
+                conn.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 	}
 }
