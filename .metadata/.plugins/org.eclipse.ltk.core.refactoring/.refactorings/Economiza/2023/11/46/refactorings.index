@@ -4,3 +4,5 @@
 1699822483796	Move 'dashboard.jsp' to 'pages'
 1699822490340	Move 'error.jsp' to 'pages'
 1700006850947	Delete element
+1700182069102	Move 'LoginServlet.java' to 'auth'
+1700182089086	Move 'RegisterServlet.java' to 'auth'

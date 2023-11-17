@@ -74,11 +74,28 @@
               >
             </div>
             <div class="navbar-nav">
-              <div class="user-profile">
+              <div class="user-profile dropdown" data-bs-toggle="dropdown" aria-expanded="false" style="cursor:pointer">
+                <ul class="dropdown-menu bg-dark">
+                  <li class="mb-3">
+                    <a class="dropdown-item d-flex flex-row align-items-center " href="./user.html">
+                      <img src="<%= session.getAttribute("foto") %>" class="rounded-circle me-2" width="45px" height="45px" id="" alt="..." />
+                      <p class="text-white my-auto text-wrap"><%= session.getAttribute("name") %></p>
+                    </a> 
+                  </li>
+                  <li><a class="dropdown-item" href="./user.html">Ver Perfil</a></li>
+                  <li>
+                    <hr class="dropdown-divider">
+                  </li>
+                  <li>
+                  	<form method="POST" action="logout">
+                  		<a class="dropdown-item" href="#" onclick="this.closest('form').submit();">Sair</a>
+                  	</form>
+                  	
+                  </li>
+                </ul>
                 <div class="user-photo">
                   <a href="./user.html">
-                  
-                   <img src="<%= session.getAttribute("foto") %>" />
+                    <img src="<%= session.getAttribute("foto") %>"/>
                   </a>
                 </div>
                 <div class="user-info">
@@ -111,14 +128,6 @@
         </button>
       </div>
 
-      <!-- <div class="d-flex justify-content-center text-white">
-      <p>Olá, Roberta!</p>
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-success btn-primary" data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop">Editar Perfil</button>
-    </div> -->
 
       <div class="d-flex justify-content-center my-4">
         <div class="card bg-dark text-white" style="width: 18rem">
@@ -253,24 +262,22 @@
           </div>
 
           <div class="modal-body">
-            <form action="">
+            <form method="POST" action="user-update" id="form-update" enctype="multipart/form-data">
               <div class="mb-3">
                 <div class="d-flex justify-content-center my-3">
                   <img
-                    src="../img/user.png"
+                    src="<%= session.getAttribute("foto") %>"
                     class="rounded-circle"
                     alt="..."
                     style="width: 8rem; height: 8rem"
                   />
                 </div>
-                <!-- <div class="mx-5">
-                <img src="../img/icons/pencil-square.svg" alt="" class="" style="width: 1.4rem; height: 1.4rem;">
-              </div> -->
               </div>
 
               <div class="input-group mb-3 mx-4 w-auto bg-dark">
                 <input
                   type="file"
+                  name="foto"
                   class="form-control bg-dark border-secondary text-light"
                   id="inputGroupFile02"
                 />
@@ -280,6 +287,20 @@
                   >Upload</label
                 >
               </div>
+              
+              <div class="mb-3 mx-4">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Nome</label
+                >
+                <input
+                  type="text"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="inputPassword6"
+                  name="nome"
+                  aria-describedby="Change name"
+                  value="<%= session.getAttribute("name") %>"
+                />
+              </div>
 
               <div class="mb-3 mx-4">
                 <label for="exampleFormControlInput1" class="form-label"
@@ -287,13 +308,28 @@
                 >
                 <input
                   type="email"
+                  name="email"
                   class="form-control bg-dark border-secondary text-light"
                   id="exampleFormControlInput1"
-                  placeholder="name@example.com"
+                  value="<%= session.getAttribute("email") %>"
+                  
+                />
+              </div>
+              
+             <div class="mb-3 mx-4">
+                <label for="exampleFormControlInput1" class="form-label"
+                  >Data de Nascimento</label
+                >
+                <input
+                  type="date"
+                  name="dt_nasc"
+                  class="form-control bg-dark border-secondary text-light"
+                  id="exampleFormControlInput1"      
+                  value="<%= session.getAttribute("dt_nasc") %>"        
                 />
               </div>
 
-              <div class="mb-3 mx-4">
+              <!--<div class="mb-3 mx-4">
                 <label for="exampleFormControlInput1" class="form-label"
                   >Senha</label
                 >
@@ -316,7 +352,7 @@
                   aria-describedby="passwordHelpInline"
                   required
                 />
-              </div>
+              </div>-->
             </form>
           </div>
           <div class="modal-footer border-secondary">
@@ -328,7 +364,8 @@
               Fechar
             </button>
             <button
-              type="submit"
+              type="button"
+              onclick="submitForm()"
               class="btn btn-primary bg-success border-success"
             >
               Salvar Alterações
@@ -343,5 +380,12 @@
       integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
       crossorigin="anonymous"
     ></script>
+    <script>
+    
+    	function submitForm(){
+    		var form = document.getElementById("form-update");
+    		form.submit();
+    	}
+    </script>
   </body>
 </html>

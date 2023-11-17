@@ -1,0 +1,57 @@
+package user;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import DAO.UsuarioDAOImpl;
+import Helpers.Helpers;
+import Models.Usuario;
+
+/**
+ * Servlet implementation class UpdateUserServlet
+ */
+@WebServlet("/pages/user-update")
+public class UpdateUserServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+    private static UsuarioDAOImpl userDao;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateUserServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 userDao = new UsuarioDAOImpl(); 
+		 
+		 HttpSession session = request.getSession(false);
+		 int user_id = (int) session.getAttribute("user_id");
+		 Usuario user = userDao.buscarUsuarioPorId(user_id);
+		 
+		 String nome = request.getParameter("nome");
+		 String cpf = request.getParameter("cpf");
+		 String dt_nascimento = request.getParameter("nascimento");
+		 String foto = Helpers.uploadPhoto(request);
+		 String email = request.getParameter("email");
+		 String senha = request.getParameter("senha");
+		 
+		 Usuario user = new Usuario(nome, email, senha, dt_nascimento, foto, cpf);
+		 if(userDao.inserirUsuario(user)) {
+			 response.sendRedirect("./login.jsp");
+		 }
+	}
+
+}
